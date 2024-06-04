@@ -1,0 +1,20 @@
+NGINX
+
+docker-compose -f docker-compose.yml up -d --build
+docker-compose -f docker-compose.yml stop
+docker-compose -f docker-compose.yml down -v
+
+docker build -t nginx .
+docker run -it nginx
+
+docker exec -it nginx bash
+
+docker ps
+
+MARIADB
+
+
+
+WORDPRESS
+
+
