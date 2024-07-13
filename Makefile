@@ -1,22 +1,21 @@
-all: build
+all:build up 
 
-build:
-	docker-compose -f srcs/docker-compose.yml up -d --build
+build: 
+	mkdir -p /home/ajoliet/data/wordpress
+	mkdir -p /home/ajoliet/data/mariadb
+	docker compose -f srcs/docker-compose.yml build
 
 resume:
-	docker-compose -f srcs/docker-compose.yml start
+	docker compose -f srcs/docker-compose.yml start
+
+suspend:
+	docker compose -f srcs/docker-compose.yml stop
+
+up: build 
+	docker compose -f  srcs/docker-compose.yml up -d
 
 stop:
-	docker-compose -f srcs/docker-compose.yml stop
+	sudo rm -rf /home/ajoliet/data
+	docker compose -f srcs/docker-compose.yml down -v --rmi all
 
-restart: clean build
-
-clean: stop
-	docker-compose -f srcs/docker-compose.yml down -v
-	
-
-fclean: clean 
-	docker system prune -af
-	
-
-re: fclean all
+re: stop all
